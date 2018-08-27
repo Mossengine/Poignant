@@ -25,12 +25,7 @@ class Poignant
     /**
      * @var
      */
-    private $isValidResults;
-
-    /**
-     * @var
-     */
-    private $isInvalidResults;
+    private $mixedResults;
 
     /**
      * Poignant constructor.
@@ -424,7 +419,7 @@ class Poignant
         }
 
         if ($this->boolValid) {
-            $this->isValidResults = call_user_func_array($callable, [$this->arrayValidation]);
+            $this->mixedResults = call_user_func_array($callable, [$this->arrayValidation]);
         }
 
         return $this;
@@ -448,7 +443,7 @@ class Poignant
         }
 
         if (!$this->boolValid) {
-            $this->isInvalidResults = call_user_func_array($callable, [$this->arrayValidation]);
+            $this->mixedResults = call_user_func_array($callable, [$this->arrayValidation]);
         }
 
         return $this;
@@ -462,12 +457,9 @@ class Poignant
     }
 
     /**
-     * @return array|bool
+     * @return mixed
      */
     public function getResults() {
-        return (!empty($this->isValidResults) || !empty($this->isInvalidResults) ? [
-            'valid' => $this->isValidResults,
-            'invalid' => $this->isInvalidResults
-        ] : false);
+        return $this->mixedResults;
     }
 }

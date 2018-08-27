@@ -61,7 +61,7 @@ class Condition
             case 'false':
                 return $this->add((false === array_get($arrayArguments, 0, true) ? '!' : '') . $stringMethod, 'parameter must ' . (false === array_get($arrayArguments, 0, true) ? 'not ' : '') . 'be a valid ' . $stringMethod);
             default:
-                return $this->add('custom', array_get($arrayArguments, 0));
+                return $this->add(strtolower($stringMethod), array_get($arrayArguments, 0));
         }
     }
 

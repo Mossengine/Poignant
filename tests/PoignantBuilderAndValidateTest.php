@@ -17,7 +17,7 @@ class PoignantBuilderAndValidateTest extends PHPUnit_Framework_TestCase
                 return 'fail';
             });
 
-        $this->assertTrue($classPoignant->hasFailed() && '{"name":["parameter must be set","parameter must not be empty"]}' === json_encode($results) && '{"valid":null,"invalid":"fail"}' === json_encode($classPoignant->getResults()));
+        $this->assertTrue($classPoignant->hasFailed() && '{"name":["parameter must be set","parameter must not be empty"]}' === json_encode($results) && '"fail"' === json_encode($classPoignant->getResults()));
         unset($classPoignant);
     }
 
@@ -41,7 +41,7 @@ class PoignantBuilderAndValidateTest extends PHPUnit_Framework_TestCase
                 return 'pass';
             });
 
-        $this->assertTrue($classPoignant->hasPassed() && empty($results) && '{"valid":"pass","invalid":null}' === json_encode($classPoignant->getResults()));
+        $this->assertTrue($classPoignant->hasPassed() && empty($results) && '"pass"' === json_encode($classPoignant->getResults()));
         unset($classPoignant);
     }
 }
