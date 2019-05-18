@@ -33,7 +33,7 @@ $ composer require mossengine/poignant
 ```json
 {
     "require": {
-        "mossengine/poignant": "~1.0.0"
+        "mossengine/poignant": "^1.0.0"
     }
 }
 ```
