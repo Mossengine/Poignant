@@ -98,7 +98,7 @@ class Poignant
 
                 // create the condition based on either calling the callable with first parameters as the Condition class or an empty array as no callable was provided.
                 $condition = (is_callable(array_get($arrayArguments, 0, null)) ? call_user_func_array(array_get($arrayArguments, 0, null), [new Condition()]) : []);
-                
+
                 // Return this from the addition to the conditions bag
                 return $this->add($stringConditionKey, ($condition instanceof Condition ? $condition->bag() : $condition));
             }
@@ -106,6 +106,20 @@ class Poignant
 
         // Return this as there was no magic functions...
         return $this;
+    }
+
+    /**
+     * @param $stringConditionKey
+     * @param $closureCondition
+     * @param mixed ...$arrayArguments
+     * @return Poignant
+     */
+    public function with($stringConditionKey, $closureCondition) {
+        // create the condition based on either calling the callable with first parameters as the Condition class or an empty array as no callable was provided.
+        $condition = (is_callable($closureCondition) ? call_user_func_array($closureCondition, [new Condition()]) : []);
+
+        // Return this from the addition to the conditions bag
+        return $this->add($stringConditionKey, ($condition instanceof Condition ? $condition->bag() : $condition));
     }
 
     /**
