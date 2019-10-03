@@ -110,11 +110,10 @@ class Poignant
 
     /**
      * @param $stringConditionKey
-     * @param $closureCondition
-     * @param mixed ...$arrayArguments
+     * @param null $closureCondition
      * @return Poignant
      */
-    public function with($stringConditionKey, $closureCondition) {
+    public function with($stringConditionKey, $closureCondition = null) {
         // create the condition based on either calling the callable with first parameters as the Condition class or an empty array as no callable was provided.
         $condition = (is_callable($closureCondition) ? call_user_func_array($closureCondition, [new Condition()]) : []);
 

@@ -50,6 +50,30 @@ class PoignantBuilderTest extends PHPUnit_Framework_TestCase
         unset($classPoignant);
     }
 
+    public function testBuildSingleWithKeyConditionUndefined() {
+        $classPoignant = Mossengine\Poignant\Poignant::create()
+            ->with('Name');
+        $this->assertTrue('{"Name":[]}' === json_encode($classPoignant->bag()));
+        unset($classPoignant);
+    }
+
+    public function testBuildMultipleWithKeysConditionUndefined() {
+        $classPoignant = Mossengine\Poignant\Poignant::create()
+            ->with('Name')
+            ->with('age');
+        $this->assertTrue('{"Name":[],"age":[]}' === json_encode($classPoignant->bag()));
+        unset($classPoignant);
+    }
+
+    public function testBuildSingleWithKeyConditionRequired() {
+        $classPoignant = Mossengine\Poignant\Poignant::create()
+            ->with('Name', function($condition) {
+                return $condition->required();
+            });
+        $this->assertTrue('{"Name":{"isset":"parameter must be set","!empty":"parameter must not be empty"}}' === json_encode($classPoignant->bag()));
+        unset($classPoignant);
+    }
+
     public function testBuildSingleWithConditionIsset() {
         $classPoignant = Mossengine\Poignant\Poignant::create()
             ->withName(function($condition) {
